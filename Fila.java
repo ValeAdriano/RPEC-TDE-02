@@ -3,70 +3,59 @@ public class Fila {
     private int tamanhoMaximo;
     private int topo;
     private int base;
-    private int[] pilha;
+    private int[] fila;
 
     public Fila(int tamanho) {
         this.tamanhoMaximo = tamanho;
         this.base = 0;
-        this.pilha = new int[tamanhoMaximo];
-        this.topo = 0; // Pilha começa vazia, então topo é -1
+        this.topo = 0; // Fila começa vazia, então topo é igual a base
+        this.fila = new int[tamanhoMaximo];
     }
 
     public void push(int elemento) {
-        if (topo == tamanhoMaximo) {
-            System.out.println("A pilha está cheia!");
+        if (isFull()) {
         } else {
-            pilha[++topo] = elemento;
+            fila[topo] = elemento;
+            topo = (topo + 1) % tamanhoMaximo;
         }
     }
 
     public int pop() {
-        if (topo == base) {
-            System.out.println("A pilha está vazia!");
-            return -1; // Indicando erro ao desempilhar
+        if (isEmpty()) {
+            return -1; // Indicando erro ao desenfileirar
         } else {
-            return pilha[base++];
+            int elemento = fila[base];
+            base = (base + 1) % tamanhoMaximo;
+            return elemento;
         }
     }
 
     public boolean isEmpty() {
-        if (topo == base) {
-
-            return topo == -1;
-        } else {
-            return topo == topo;
-        }
-
-
+        return topo == base;
     }
 
     public boolean isFull() {
-        if (topo == tamanhoMaximo){
-            System.out.println("A fila está cheia");
-            return true;
-        } else {
-            return false;
-        }
+        return (topo + 1) % tamanhoMaximo == base;
     }
 
-    // Método para retornar o elemento no topo da pilha
+    // Método para retornar o elemento no topo da fila (na frente)
     public int topo() {
-        if (topo == -1) {
-            System.out.println("A pilha está vazia!");
-            return -1; // Indicando que a pilha está vazia
+        if (isEmpty()) {
+            System.out.println("A fila está vazia!");
+            return -1; // Indicando que a fila está vazia
         } else {
-            return pilha[topo];
+            return fila[base];
         }
     }
 
-    // Método para imprimir todos os elementos da pilha
-    public void mostrarPilha() {
-        if (topo == -1) {
-            System.out.println("A pilha está vazia!");
+    // Método para imprimir todos os elementos da fila
+    public void mostrarFila() {
+        if (isEmpty()) {
+            System.out.println("A fila está vazia!");
         } else {
-            System.out.print("Pilha: ");
-            for (int i = 0; i <= topo; i++) {
-                System.out.print(pilha[i] + " ");
+            System.out.print("Fila: ");
+            for (int i = base; i != topo; i = (i + 1) % tamanhoMaximo) {
+                System.out.print(fila[i] + " ");
             }
             System.out.println();
         }
