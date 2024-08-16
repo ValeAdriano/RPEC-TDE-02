@@ -4,9 +4,11 @@ public class Fila {
     private int topo;
     private int base;
     private int[] fila;
+    private int quantidade;
 
     public Fila(int tamanho) {
         this.tamanhoMaximo = tamanho;
+        this.quantidade = 0;
         this.base = 0;
         this.topo = 0; // Fila começa vazia, então topo é igual a base
         this.fila = new int[tamanhoMaximo];
@@ -15,8 +17,10 @@ public class Fila {
     public void push(int elemento) {
         if (isFull()) {
         } else {
+            this.move();
             fila[topo] = elemento;
             topo = (topo + 1) % tamanhoMaximo;
+            quantidade++;
         }
     }
 
@@ -25,17 +29,37 @@ public class Fila {
             return -1; // Indicando erro ao desenfileirar
         } else {
             int elemento = fila[base];
+            fila[base] = 0;
             base = (base + 1) % tamanhoMaximo;
+            --quantidade;
             return elemento;
         }
     }
 
+    public void move() {
+        if (this.topo == this.tamanhoMaximo){
+            System.out.println("circulando");
+            this.topo = 0;
+        }
+//        this.topo = (this.topo + 1)% this.tamanhoMaximo;
+    }
+
     public boolean isEmpty() {
-        return topo == base;
+        if (this.topo == this.quantidade) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public boolean isFull() {
-        return (topo + 1) % tamanhoMaximo == base;
+        if (this.topo == this.tamanhoMaximo) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     // Método para retornar o elemento no topo da fila (na frente)
