@@ -13,18 +13,21 @@ public class Main {
         fila.push(4);
         fila.push(5);
 
-        System.out.println("Fila após adicionar elementos:");
         fila.mostrarFila();
 
         fila.pop();
+        fila.mostrarFila();
+        fila.push(5);
 
-        fila.push(5);
+
         fila.pop();
         fila.mostrarFila();
         fila.push(5);
+
         fila.pop();
         fila.mostrarFila();
         fila.push(5);
+
         fila.pop();
         fila.mostrarFila();
         fila.push(5);

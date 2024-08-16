@@ -78,9 +78,10 @@ public class Fila {
             System.out.println("A fila está vazia!");
         } else {
             System.out.print("Fila: ");
-            for (int i = base; i != topo; i = (i + 1) % tamanhoMaximo) {
+            for (int i = topo; i != base; i = (i + 1) % tamanhoMaximo) {
                 System.out.print(fila[i] + " ");
             }
+
             System.out.println();
         }
     }
