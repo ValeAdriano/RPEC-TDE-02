@@ -1,42 +1,20 @@
 public class Main {
 
     public static void main(String[] args) {
-        Fila fila = new Fila(5);
+        Lista lista = new Lista(5);
 
-        // Testando isEmpty() em uma fila vazia
-        System.out.println("A fila está vazia? " + fila.isEmpty());
 
         // Adicionando elementos na fila
-        fila.push(1);
-        fila.push(2);
-        fila.push(3);
-        fila.push(4);
-        fila.push(5);
+        lista.push(1);
+        lista.push(2);
+        lista.push(3);
+        lista.push(4);
 
-        fila.mostrarFila();
+        lista.mostrarFila();
 
-        fila.pop();
-        fila.mostrarFila();
-        fila.push(5);
+        lista.push(777, 2);
 
-
-        fila.pop();
-        fila.mostrarFila();
-        fila.push(5);
-
-        fila.pop();
-        fila.mostrarFila();
-        fila.push(5);
-
-        fila.pop();
-        fila.mostrarFila();
-        fila.push(5);
-
-        System.out.println("Fila após adicionar elementos:");
-        fila.mostrarFila();
-
-        System.out.println("A fila está vazia? " + fila.isEmpty());
-        System.out.println("A fila está cheia? " + fila.isFull());
+        lista.mostrarFila();
 
 
 
