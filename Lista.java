@@ -1,61 +1,90 @@
 public class Lista {
 
-    private int tamanhoMaximo;
-    private int topo;
-    private int base;
-    private int[] lista;
+    private int tamanho;
+    private Node topo;
+    private Node base;
+    private Node[] lista;
     private int quantidade;
     private int position;
 
-    public Lista(int tamanho) {
-        this.tamanhoMaximo = tamanho;
+    public Lista() {
+        this.tamanho = 0;
         this.quantidade = 0;
-        this.base = 0;
-        this.topo = 0; // Fila começa vazia, então topo é igual a base
-        this.lista = new int[tamanhoMaximo];
+        this.base = null;
+        this.topo = null; // Fila começa vazia, então topo é igual a base
+        this.lista = new Node[tamanho];
         this.position = position;
     }
 
-    public void push(int elemento) {
-        if (isFull()) {
+    public void push(int data) {
+        Node novoElemento = new Node(data);
+
+        if (isEmpty()) {
+            this.base = novoElemento;
+            this.topo = novoElemento;
         } else {
-//            this.move();
-            lista[topo] = elemento;
-            topo = (topo + 1) % tamanhoMaximo;
-            quantidade++;
-            mostrarFila();
+            this.topo.next = novoElemento;
+            novoElemento.previous = this.topo;
+            this.topo = novoElemento;
+
         }
+        tamanho++;
+        quantidade++;
     }
 
-    public void push(int elemento, int position) {
-        if (isFull()) {
-            System.out.println("A fila está cheia. Não é possível adicionar o elemento.");
-        } else {
-
-
-//            Pilha pilha = new Pilha(tamanhoMaximo);
-//            pilha.push(lista[position]);
-            int aux1, aux2;
-            aux1 = lista[position];
-            lista[position] = elemento;
-            for (int i = (position+1); i <= topo; i++) {
-                aux2 = lista[i];
-                lista[i] = aux1;
-                aux1 = aux2;
-            }
-            quantidade++;
-        }
-    }
+//    public void push(int data, int position) {
+//        if (position < 0 || position > quantidade) {
+//            System.out.println("Posição inválida!");
+//            return;
+//        }
+//
+//        Node novoElemento = new Node(data);
+//
+//        if (position == 0) {
+//            // Inserção no início da lista
+//            novoElemento.next = this.base;
+//            if (this.base != null) {
+//                this.base.previous = novoElemento;
+//            }
+//            this.base = novoElemento;
+//            if (quantidade == 0) {
+//                this.topo = novoElemento;
+//            }
+//        } else if (position == quantidade) {
+//            // Inserção no final da lista (mesmo que o método push(int data))
+//            push(data);
+//            return;
+//        } else {
+//            // Inserção no meio da lista
+//            Node atual = this.base;
+//            for (int i = 0; i < position - 1; i++) {
+//                atual = atual.next;
+//            }
+//            novoElemento.next = atual.next;
+//            novoElemento.previous = atual;
+//            if (atual.next != null) {
+//                atual.next.previous = novoElemento;
+//            }
+//            atual.next = novoElemento;
+//        }
+//
+//        quantidade++;
+//    }
 
     public int pop() {
         if (isEmpty()) {
             return -1; // Indicando erro ao desenfileirar
         } else {
-            int elemento = lista[base];
-            lista[base] = 0;
-            base = (base + 1) % tamanhoMaximo;
-            --quantidade;
-            return elemento;
+            int data = this.base.data;
+            if (this.base == this.topo) {
+                this.base = null;
+                this.topo = null;
+            } else {
+                this.base = this.base.next;
+                this.base.previous = null;
+            }
+            quantidade--;
+            return data;
         }
     }
 
@@ -68,32 +97,12 @@ public class Lista {
 //    }
 
     public boolean isEmpty() {
-        if (this.topo == this.base) {
-            return true;
-        }
-        return false;
+        return tamanho == 0;
 
 
     }
 
-    public boolean isFull() {
-        if (this.topo == this.tamanhoMaximo) {
-            return true;
-        } else {
-            return false;
-        }
 
-    }
-
-    // Método para retornar o elemento no topo da fila (na frente)
-    public int topo() {
-        if (isEmpty()) {
-            System.out.println("A fila está vazia!");
-            return -1; // Indicando que a fila está vazia
-        }
-        return lista[base];
-
-    }
 
     // Método para imprimir todos os elementos da fila
     public void mostrarFila() {
@@ -101,10 +110,10 @@ public class Lista {
             System.out.println("A fila está vazia!");
         } else {
             System.out.print("Fila: ");
-            // O loop deve percorrer a fila desde a base até a quantidade de elementos na fila
-            for (int i = 0; i < quantidade; i++) {
+            // Percorre a fila desde a base até a quantidade de elementos na fila
+            for (int i = 0; i < tamanho; i++) {
                 // Calcula o índice usando a base como referência e o tamanho máximo para lidar com a fila circular
-                int index = (base + i) % tamanhoMaximo;
+                int index = (this.topo.data + i) % this.tamanho;
                 System.out.print(lista[index] + " ");
             }
             System.out.println();

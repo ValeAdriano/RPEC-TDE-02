@@ -1,8 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        Lista lista = new Lista(5);
-
+        Lista lista = new Lista();
 
         // Adicionando elementos na fila
         lista.push(1);
@@ -10,13 +9,8 @@ public class Main {
         lista.push(3);
         lista.push(4);
 
-        lista.mostrarFila();
 
-        lista.push(777, 2);
-
-        lista.mostrarFila();
-
-
+        lista.mostrarFila(); // Saída esperada: Fila: 1 2 3 4
 
     }
 }
